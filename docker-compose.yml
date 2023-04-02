@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: courses_mysql_db
+    command: --explicit_defaults_for_timestamp=1
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=courses
+      - MYSQL_ROOT_PASSWORD=mauFJcuf5dhRMQrjj
+    networks:
+      db:
+
+
+volumes:
+  db:
+    driver: local
+
+# Networks to be created to facilitate communication between containers
+networks:
+  db:
+    driver: bridge
